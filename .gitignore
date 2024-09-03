@@ -1,2 +1,5 @@
 info.html
 infohtml.ref.txt
+*.obj
+*.exe
+*.c
