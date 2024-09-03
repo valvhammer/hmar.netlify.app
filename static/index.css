@@ -17,17 +17,36 @@ html {
     font-family: 'Poppins', sans-serif;
 }
 
-.thanks {
+.home .thanks {
     position:absolute;
     bottom:15px;
     left:15px;
 }
 
-p {
+.home p {
 	font-family: 'Poppins', sans-serif;
 	font-size: 12px;
 	font-weight: bold;
 	opacity: 0.5;
+}
+
+.home .info {
+    position:absolute;
+    top:15px;
+    right:15px;
+    font-family: 'Poppins', sans-serif;
+	font-weight: bold;
+    text-decoration: none;
+}
+
+.home .info a {
+    color: #fff;
+    font-size: 25px;
+    transition: .3s;
+}
+
+.home .info a:hover {
+    color: #fe8f08;
 }
 
 .home {
