@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+
+    background-image: url("../img/Sunrise.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+}
+
+.thanks {
+    position:absolute;
+    bottom:15px;
+    left:15px;
+}
+
+p {
+	font-family: 'Poppins', sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	opacity: 0.5;
+}
+
+.home {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    animation: load 1.3s;
+}
+
+@keyframes load {
+    0% {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.home h1 {
+    font-size: 35px;
+	
+}
+
+.home .icons {
+    display: flex;
+    gap: 10px;
+}
+
+
+.home .icons a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 35px;
+    transition: .3s;
+}
+
+.home .icons a:hover {
+    color: #fe8f08;
+}
+
+.home button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: #fe8f08;
+    color: #fff;
+    border: solid 1px #fe8f08;
+    outline: none;
+    box-shadow: 0px 0px 35px #fe8f084f;
+    transition: .3s;
+    position: absolute;
+    bottom: 15px;
+}
+
+.home button:hover {
+    transform: scale(1.04);
+}
+
+x {
+    color: #fe8f08;
+}
