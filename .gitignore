@@ -1,6 +1,6 @@
 info.html
 infohtml.ref.txt
-*.obj
-*.exe
-*.c
-*.bat
+server.js
+node_modules/
+package-lock.json
+package.json
