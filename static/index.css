@@ -65,7 +65,7 @@ html {
 }
 
 .hidden {
-	color: #fff0
+	display: none;
 }
 
 @keyframes load {
