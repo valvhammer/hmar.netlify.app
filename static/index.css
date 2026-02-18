@@ -25,7 +25,6 @@ button {
     background-color: #272727;
     color: #EBEBEB;
     border: double 2px #181818;
-    box-shadow: 0px 0px 25px #181818;
 }
 
 button:hover {
@@ -40,5 +39,8 @@ button:hover {
     color: #fff;
     text-decoration: none;
     font-size: 35px;
+}
 
+.links a:hover {
+    color: #303030;
 }
