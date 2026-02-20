@@ -1,0 +1,43 @@
+<h1 id="fucking-around-with-vkquake">Fucking around with (vk)Quake</h1>
+<p>A few days ago I was trying to do some stuff with vkQuake, and I saw
+a <a href="https://www.youtube.com/watch?v=V2rScffUWG0">video about
+loading HLAlpha0.52 bsp files in DOS Quake</a>, so I decided to try it
+myself.</p>
+<figure>
+<img src="vkQuake_KitgvpA0Tt.png" alt="alpha c1a1.bsp" />
+<figcaption aria-hidden="true">alpha c1a1.bsp</figcaption>
+</figure>
+<p>Clearly, I got the same result as in the video (minus the soundtrack,
+thank god).</p>
+<p>But I also wanted to see what would happen if I loaded a retail HL
+BSP in. And it worked, somehow…</p>
+<figure>
+<img src="vkQuake_cap4HM15IW.png" alt="retail c1a1c.bsp" />
+<figcaption aria-hidden="true">retail c1a1c.bsp</figcaption>
+</figure>
+<p>At first I thought “this works because the version checker fails”,
+but after looking into the source code, I realized that it does not
+fail.</p>
+<figure>
+<img src="notepad++_2AI0yKxMzP.png"
+alt="BSP version checker (gl_model.c, Mod_LoadBrushModel)" />
+<figcaption aria-hidden="true">BSP version checker (gl_model.c,
+Mod_LoadBrushModel)</figcaption>
+</figure>
+<p>So it dosen’t fail, okay, “but where is BSP29_VALVE defined?”, I
+asked. One grep later I found out that it is defined in quakedef.h</p>
+<figure>
+<img src="WindowsTerminal_n4KGRxXDnU.png" alt="quakedef define" />
+<figcaption aria-hidden="true">quakedef define</figcaption>
+</figure>
+<h2 id="other-stuff">Other stuff</h2>
+<p>I also tried to implement bunnyjumping (failed at that), and a very,
+very bad spedometer</p>
+<figure>
+<img src="vkQuake_4KpUyyjsFL.png" alt="bad spedometer" />
+<figcaption aria-hidden="true">bad spedometer</figcaption>
+</figure>
+<p>I could’ve just used a source port that has both, but I didn’t,
+because why should I?</p>
+<small>Written on 2026-02-20</small>
+<small>&copy 2026 ValvHammer</small>
