@@ -1,65 +1,24 @@
-@font-face {
-    font-family: 'Cascadia Code';
-    src: url("./CascadiaCode.woff2");
+body {
+    background-color: #181818;
+    color: #eeeeee;
 }
 
-body { 
-    background-color: #050505;
-    max-width: 650px;
-    margin: 40px auto;
-    padding: 0 10px;
-    font-family: "Cascadia Code";
-    font-size: 16px;
-    color: #EBEBEB;
+.socials {
+    display: flex;
 }
 
-hr {
-    height: 2px;
+.socials button {
+    margin-right: 5px;
 }
 
-a {
-    color: #05aaff;
+a:link { color: #2a61ff; }
+a:visited { color: #2a61b2; }
+
+.center {
+    display: grid;
+    justify-content: center;
 }
 
-img {
-    width: 95%;
-    height: audio;
-}
-
-hr {
-    height: 0px;
-}
-
-figcaption {
-    font-size: 12px;
-    margin-left: 15px;
-}
-
-button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-family: 'Cascadia Code';
-    font-weight: bold;
-    border-radius: 10px;
-    background-color: #272727;
-    color: #EBEBEB;
-    border: double 2px #181818;
-}
-
-button:hover {
-    background-color: #202020;
-}
-
-.links {
-    margin-top: 15px;
-}
-
-.links a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 35px;
-}
-
-.links a:hover {
-    color: #7a7a7a;
+code {
+    font-family: 'Courier New', Courier, monospace;
 }
