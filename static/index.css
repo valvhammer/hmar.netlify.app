@@ -1,6 +1,16 @@
+@font-face {
+    font-family: 'Spleen 16x32';
+    src: url("./spleen-16x32.woff2");
+}
+
 body {
     background-color: #181818;
     color: #eeeeee;
+    font-family: 'Spleen 16x32';
+}
+
+button {
+    font-family: 'Spleen 16x32';
 }
 
 .socials {
