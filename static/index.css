@@ -30,6 +30,62 @@ a:visited { color: #2a61b2; }
     justify-content: center;
 }
 
+.code {
+    background-color: #101010;
+}
+
 code {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Spleen 16x32';
+    font-size: 18px;
+}
+
+comment {
+    color: #707070;
+    font-style: italic;
+}
+
+string {
+    color: #73c936;
+}
+
+string-escape {
+    color: #516346;
+}
+
+type {
+    color: #95a99f;
+}
+
+func {
+    color: #635a46;
+    font-weight: bold;
+    font-style: italic;
+}
+
+number {
+    color: #aaaaaa;
+}
+
+preproc {
+    color: #999999;
+}
+
+if {
+    color: #8e6a5a;
+    font-weight: bold;
+}
+
+define {
+    color: #635a46;
+    font-weight: bold;
+}
+
+macro {
+    color: #8f8f8f;
+    font-weight: bold;
+}
+
+keyword {
+    color: #ffdd33;
+    font-weight: bold;
 }
