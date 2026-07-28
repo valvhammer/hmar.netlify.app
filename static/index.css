@@ -11,6 +11,7 @@ body {
 
 button {
     font-family: 'Spleen 16x32';
+    border-radius: 0px;
 }
 
 .socials {
