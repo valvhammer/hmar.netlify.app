@@ -1,0 +1,7 @@
+#include&nbsp;&lt;stdio.h&gt;<br>
+<br>
+<type>int</type>&nbsp;<func>main</func>()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<func>printf</func>(<string>&quot;Hello, World!<string-escape>\n</string-escape>&quot;</string>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<keyword>return</keyword>&nbsp;<number>0</number>;<br>
+}

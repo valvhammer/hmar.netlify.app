@@ -22,6 +22,15 @@ button {
     margin-right: 5px;
 }
 
+.entries {
+	display: block;
+	
+}
+
+.list-entry {
+	list-style-type: none;
+}
+
 a:link { color: #2a61ff; }
 a:visited { color: #2a61b2; }
 
@@ -30,13 +39,21 @@ a:visited { color: #2a61b2; }
     justify-content: center;
 }
 
-.code {
-    background-color: #101010;
+.code-block {
+	padding: 5px;
+    background-color: #202020;
+	width: fit-content;
+	max-width: 100%;
+	overflow-x: auto;
+	border: solid;
+	border-color: #101010;
 }
 
 code {
     font-family: 'Spleen 16x32';
     font-size: 18px;
+	padding: 2px;
+	background-color: #202020;
 }
 
 comment {
