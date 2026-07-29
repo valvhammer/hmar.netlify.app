@@ -4,3 +4,5 @@ server.js
 node_modules/
 package-lock.json
 package.json
+prog/*.exe
+prog/code2html
