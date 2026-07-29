@@ -104,7 +104,7 @@ def emit_code_block(data: str, lang: str):
         print("</div>")
         
     os.remove("md2html.temp")
-    os.remove("md2htm_2.temp")
+    os.remove("md2html_2.temp")
         
 def emit_bulletlist(data):
     print("<ul>")

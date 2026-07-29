@@ -1,6 +1,6 @@
 # Test
 
-This is a test of md2html.py, a hand written converter. Hopefully it works *fine*...
+This is a test of md2html.py, a hand written converter (if you can even call it that). Hopefully it works *fine*...
 
 ## Heading
 
@@ -73,4 +73,5 @@ Horizontal line above this
 1. list with numbers
 2. second item
 
-<small>Written on 2026-07-29</small>
+<small>Written on <time datetime="2026-07-30T00:00:00.000Z">2026-07-29</time></small><br>
+<small>Last edit on <time datetime="2026-07-30T01:31:00.000Z">2026-07-30 1:31</time></small>

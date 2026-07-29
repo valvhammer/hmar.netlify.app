@@ -23,12 +23,12 @@ button {
 }
 
 .entries {
-	display: block;
-	
+	display: block;	
 }
 
 .list-entry {
 	list-style-type: none;
+	display: block;
 }
 
 a:link { color: #2a61ff; }
