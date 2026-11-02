@@ -131,6 +131,59 @@ def emit_ordererdlist(data):
                         elif section['t'] == "Space": emit_space()
                 print("</li>")
     print("</ol>")
+ALIGN = {
+    "AlignLeft": ' style="text-align:left"',
+    "AlignRight": ' style="text-align:right"',
+    "AlignCenter": ' style="text-align:center"',
+}
+
+def emit_inlines(data):
+    for section in data:
+        if section['t'] == "Link": emit_link(section['c'][2], section['c'][1])
+        elif section['t'] == "Image": emit_image(section['c'][2], section['c'][1])
+        elif section['t'] == "Strong": emit_bold(section['c'])
+        elif section['t'] == "Emph": emit_italic(section['c'])
+        elif section['t'] == "Strikeout": emit_strikethough(section['c'])
+        elif section['t'] == "RawInline": emit_raw_inline(section['c'])
+        elif section['t'] == "Code": emit_small_code(section['c'])
+        elif section['t'] == "Str": emit_str(section['c'])
+        elif section['t'] == "Space": emit_space()
+
+def emit_cell(tag: str, cell):
+    # cell = [attr, alignment, rowspan, colspan, [blocks]]
+    style = ALIGN.get(cell[1]['t'], "")
+    print(f"<{tag}{style}>", end="")
+    for block in cell[4]:
+        if block['t'] in ("Plain", "Para"):
+            emit_inlines(block['c'])
+    print(f"</{tag}>")
+
+def emit_row(tag: str, row):
+    # row = [attr, [cells]]
+    print("<tr>")
+    for cell in row[1]:
+        emit_cell(tag, cell)
+    print("</tr>")
+
+def emit_table(data):
+    # data = [attr, caption, colspecs, thead, [tbody], tfoot]
+    thead, tbodies = data[3], data[4]
+
+    print("<table>")
+
+    print("<thead>")
+    for row in thead[1]:
+        emit_row("th", row)
+    print("</thead>")
+
+    for body in tbodies:
+        # body = [attr, row_head_columns, [head rows], [body rows]]
+        print("<tbody>")
+        for row in body[3]:
+            emit_row("td", row)
+        print("</tbody>")
+
+    print("</table>")
 
 def get_json_from_gfm(path: str):
     result = subprocess.run(["pandoc", "-f", "gfm", "-t", "json", path], capture_output=True)
@@ -139,7 +192,9 @@ def get_json_from_gfm(path: str):
         exit(69)
       
     return json.loads(result.stdout.decode("utf-8"))
-       
+      
+
+
 def walk(dictionary: dict):
     for block in dictionary["blocks"]:
         type = block['t']
@@ -155,6 +210,8 @@ def walk(dictionary: dict):
             emit_bulletlist(block['c'])
         if type == "OrderedList":
             emit_ordererdlist(block['c'])
+        if type == "Table":
+            emit_table(block['c'])
         print("")
 
 
