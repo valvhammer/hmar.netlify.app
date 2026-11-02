@@ -6,6 +6,7 @@
 body {
     background-color: #181818;
     color: #eeeeee;
+    font-size: 18px;
     font-family: 'Spleen 16x32';
 }
 
@@ -54,6 +55,31 @@ code {
     font-size: 18px;
 	padding: 2px;
 	background-color: #202020;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 1em 0;
+/*  width: 100%;*/
+}
+
+th, td {
+  padding: 4px 6px;
+  border: 1px solid rgba(128, 128, 128, 0.4);
+  text-align: left;
+}
+
+th {
+  background: rgba(128, 128, 128, 0.2);
+  font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+  background: rgba(128, 128, 128, 0.08);
+}
+
+tbody tr:hover {
+  background: rgba(128, 128, 128, 0.18);
 }
 
 comment {
