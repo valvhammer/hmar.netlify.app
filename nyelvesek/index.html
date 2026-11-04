@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GamerHammer2K4F647Ultimate - nyelvesek</title>
-	<link rel="shortcut icon" href="./img/pfp.png">
-    <link rel="stylesheet" href="../static/index.css">
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <title>Hammer's corner - nyelvesek</title>
+    <link rel="stylesheet" href="/static/index.css">
 </head>
-<section class="home">
+<body>
+    <img src="" id="nyelv"/>
+
     <script>
         function redirect() {
             var links = [
@@ -41,10 +41,12 @@
             console.log(randomIndex);
             
             // Redirect to the randomly selected link
-            window.location.href = links[randomIndex];
+            //window.location.href = links[randomIndex];
+            
+            document.getElementById("nyelv").src = links[randomIndex];
         }
         
         window.onload = redirect;
     </script>
-</section>
+</body>
 </html>

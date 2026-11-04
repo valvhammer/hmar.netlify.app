@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GamerHammer2K4F647Ultimate - jd vance</title>
-	<link rel="shortcut icon" href="./img/pfp.png">
+    <title>Hammer's corner - jd vance</title>
     <link rel="stylesheet" href="../static/index.css">
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
 </head>
-<section class="home">
+<body>
+
+    <img src="" id="jd" />
+
     <script>
         function redirect() {
             var links = [
@@ -112,10 +113,10 @@
             console.log(randomIndex);
             
             // Redirect to the randomly selected link
-            window.location.href = links[randomIndex];
+            document.getElementById("jd").src = links[randomIndex];
         }
         
         window.onload = redirect;
     </script>
-</section>
+</body>
 </html>
