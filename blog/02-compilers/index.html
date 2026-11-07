@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cross-compilers</title>
+<link rel="stylesheet" href="/static/index.css">
+</head>
+<h1>Building cross-compilers</h1>
+<p>Building cross-compilers can be a very, very big pain in the ass. But once you know how to do things it becomes slightly easier.</p>
+<h2>Some information about cross compiling</h2>
+<p>Read <a href="https://wiki.osdev.org/Why_do_I_need_a_Cross_Compiler" target="_blank">the OSDev wiki page about this</a>.</p>
+<p>You might ask, <code>I'm not developing an OS, why should I read it?</code>
+, because, knowing something that you're not gonna use right now is not a bad idea.</p>
+<h3>Build, host, target</h3>
+<p>This is mentioned on the OSDev wiki, but I'll write it down here.</p>
+<p>You will encounter the <code>./configure</code>
+ options <code>--build</code>
+, <code>--host</code>
+, and <code>--target</code>
+. But what do these mean?</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Meaning</th>
+<th>Typical value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--build</code>
+</td>
+<td>The machine you're building on.</td>
+<td>On Linux, AMD64, this may be <code>x86_64-pc-linux-gnu</code>
+</td>
+</tr>
+<tr>
+<td><code>--host</code>
+</td>
+<td>The machine that the output is going to run on</td>
+<td>Usually, in the case of cross-compilers, this is equal to <code>--build</code>
+</td>
+</tr>
+<tr>
+<td><code>--target</code>
+</td>
+<td>Only used for software that builds other software, this tells them what to output software for</td>
+<td>Depends on the cross-compiler</td>
+</tr>
+</tbody>
+</table>
+
+<h3>./configure</h3>
+<p>GNU software almost always uses <code>autoconf</code>
+. No one likes this, but there's not much we can do.</p>
+<p>Some options that you, should know:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Meaning</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--prefix</code>
+</td>
+<td>Install location</td>
+<td>By default, it is <code>/usr</code>
+. We do not want this</td>
+</tr>
+<tr>
+<td><code>--disable-&lt;feature&gt;</code>
+</td>
+<td>Disables a feature</td>
+<td></td>
+</tr>
+<tr>
+<td><code>--enable-&lt;feature&gt;</code>
+</td>
+<td>Enables a features</td>
+<td></td>
+</tr>
+<tr>
+<td><code>--without-&lt;package&gt;</code>
+</td>
+<td>Don't use a package</td>
+<td></td>
+</tr>
+<tr>
+<td><code>--with-&lt;package&gt;</code>
+</td>
+<td>Use a package</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<h2>mingw32</h2>
+<p>The older "brother" to <code>mingw-w64</code>
+ (<code>x86_64-w64-mingw32</code>
+ or <code>i686-w64-mingw32</code>
+), this is very useful for cross-compiling things to older versions of Windows (like 9x) that aren't console apps.</p>
+<p>The triple for this is <code>i686-pc-mingw32</code>
+ or just <code>mingw32</code>
+.</p>
+<p>This configuration should be compatible with the last version of <code>mingw32</code>
+ released for Windows, but I'm not too sure.</p>
+<h3>Requirements</h3>
+<table>
+<thead>
+<tr>
+<th>Thing</th>
+<th>Download</th>
+<th>SHA256 sum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gmp 6.1.2</td>
+<td><a href="https://ftp.gnu.org/gnu/gmp/gmp-6.1.2.tar.xz" target="_blank">Download</a></td>
+<td><code>5275bb04f4863a13516b2f39392ac5e272f5e1bb8057b18aec1c9b79d73d8fb2</code>
+</td>
+</tr>
+<tr>
+<td>mpc 1.0.3</td>
+<td><a href="https://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz" target="_blank">Download</a></td>
+<td><code>617decc6ea09889fb08ede330917a00b16809b8db88c29c31bfbb49cbf88ecc3</code>
+</td>
+</tr>
+<tr>
+<td>mpfr 3.1.5</td>
+<td><a href="https://ftp.gnu.org/gnu/mpfr/mpfr-3.1.5.tar.xz" target="_blank">Download</a></td>
+<td><code>015fde82b3979fbe5f83501986d328331ba8ddf008c1ff3da3c238f49ca062bc</code>
+</td>
+</tr>
+<tr>
+<td>gcc 6.3.0</td>
+<td><a href="https://ftp.gnu.org/gnu/gcc/gcc-6.3.0/gcc-6.3.0.tar.bz2" target="_blank">Download</a></td>
+<td><code>f06ae7f3f790fbf0f018f6d40e844451e6bc3b7bc96e128e63b09825c1f8b29f</code>
+</td>
+</tr>
+<tr>
+<td>binutils 2.27</td>
+<td><a href="https://ftp.gnu.org/gnu/binutils/binutils-2.27.tar.bz2" target="_blank">Download</a></td>
+<td><code>369737ce51587f92466041a97ab7d2358c6d9e1b6490b3940eb09fb0a9a6ac88</code>
+</td>
+</tr>
+<tr>
+<td>w32api 3.18.2</td>
+<td><a href="/blog/02-compilers/w32api-3.18.2-mingw32-dev.tar.xz" target="_blank">Download</a></td>
+<td><code>c47f41c1956e90f4e8b060190953a606a37533bb4b9b647565326f62dcb14208</code>
+</td>
+</tr>
+<tr>
+<td>mingwrt 3.22.4</td>
+<td><a href="/blog/02-compilers/mingwrt-3.22.4-mingw32-dev.tar.xz" target="_blank">Download</a></td>
+<td><code>1665e70082f47da9eda99c026e9a693f10fb666cc487bdcda5866cde4c018af5</code>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Building</h3>
+<h4>Setup</h4>
+<div class="code-block">
+<code>
+export&nbsp;MINGW_TARGET=i686-pc-mingw32&nbsp;#&nbsp;or&nbsp;mingw32<br>
+export&nbsp;MINGW_PREFIX=/opt/mingw32&nbsp;#&nbsp;or&nbsp;anything&nbsp;you'd like,&nbsp;this&nbsp;is&nbsp;what&nbsp;I&nbsp;used<br>
+export&nbsp;PATH=$MINGW_PREFIX/bin:$PATH
+</code>
+</div>
+
+<h4>Binutils</h4>
+<p>Very straightforward.</p>
+<div class="code-block">
+<code>
+$&nbsp;tar&nbsp;xpf&nbsp;binutils-<number>2.27</number>.tar.bz2<br>
+$&nbsp;mkdir&nbsp;build-binutils&nbsp;&amp;&amp;&nbsp;cd&nbsp;build-binutils<br>
+$&nbsp;../binutils-<number>2.27</number>/configure&nbsp;--target=$MINGW_TARGET&nbsp;--prefix=$MINGW_PREFIX&nbsp;--disable-nls&nbsp;--disable-multilib&nbsp;MAKEINFO=true<br>
+$&nbsp;make&nbsp;-<func>j$</func>(nproc)&nbsp;&amp;&amp;&nbsp;make&nbsp;install
+</code>
+</div>
+
+<h3>Runtime</h3>
+<div class="code-block">
+<code>
+$&nbsp;mkdir&nbsp;-pv&nbsp;$MINGW_PREFIX/$MINGW_TARGET<br>
+$&nbsp;tar&nbsp;-C&nbsp;$PREFIX/$MINGW_TARGET&nbsp;-xpf&nbsp;mingwrt-<number>3.22</number><number>.4</number>-mingw32-dev.tar.xz<br>
+$&nbsp;tar&nbsp;-C&nbsp;$PREFIX/$MINGW_TARGET&nbsp;-xpf&nbsp;w32api-<number>3.18</number><number>.2</number>-mingw32-dev.tar.xz<br>
+$&nbsp;find&nbsp;$MINGW_PREFIX/$MINGW_TARGET/include&nbsp;$MINGW_PREFIX/$MINGW_TARGET/lib&nbsp;-name&nbsp;<string>&quot;crt2.o&quot;</string>&nbsp;-or&nbsp;-name&nbsp;<string>&quot;libmingw32.a&quot;</string>&nbsp;-or&nbsp;-name&nbsp;<string>&quot;libmingwex.a&quot;</string>&nbsp;#&nbsp;check&nbsp;that&nbsp;these&nbsp;exist
+</code>
+</div>
+
+<p>The last command is to make sure that those files exist</p>
+<h3>GCC and G++</h3>
+<p>First, extract <code>gcc</code>
+, <code>gmp</code>
+, <code>mpfr</code>
+, and <code>mpc</code>
+:</p>
+<div class="code-block">
+<code>
+$&nbsp;tar&nbsp;xpf&nbsp;gcc-<number>6.3</number><number>.0</number>.tar.bz2&nbsp;<br>
+$&nbsp;tar&nbsp;xpf&nbsp;gmp-<number>6.1</number><number>.2</number>.tar.bz2&nbsp;&amp;&amp;&nbsp;mv&nbsp;gmp-<number>6.1</number><number>.2</number>&nbsp;gcc-<number>6.3</number><number>.0</number>/gmp<br>
+$&nbsp;tar&nbsp;xpf&nbsp;mpfr-<number>3.1</number><number>.5</number>.tar.xz&nbsp;&amp;&amp;&nbsp;mv&nbsp;mpfr-<number>3.1</number><number>.5</number>&nbsp;gcc-<number>6.3</number><number>.0</number>/mpfr<br>
+$&nbsp;tar&nbsp;xpf&nbsp;mpc-<number>1.0</number><number>.3</number>.tar.gz&nbsp;&amp;&amp;&nbsp;mv&nbsp;mpc-<number>1.0</number><number>.3</number>&nbsp;gcc-<number>6.3</number><number>.0</number>/mpc
+</code>
+</div>
+
+<p>Then, we need to patch GCC's <code>ubsan.c</code>
+:</p>
+<div class="code-block">
+<code>
+$&nbsp;sed&nbsp;-i&nbsp;<string>&quot;s/xloc.file == '<string-escape>\\</string-escape><string-escape>\\</string-escape>0'/xloc.file == NULL/&quot;</string>&nbsp;gcc-<number>6.3</number><number>.0</number>/gcc/ubsan.c<br>
+$&nbsp;sed&nbsp;-n&nbsp;'14<number>74</number>p' gcc-<number>6.3</number><number>.0</number>/gcc/ubsan.c&nbsp;#&nbsp;check
+</code>
+</div>
+
+<p>After that we can build GCC:</p>
+<div class="code-block">
+<code>
+$&nbsp;mkdir&nbsp;build-gcc&nbsp;&amp;&amp;&nbsp;cd&nbsp;build-gcc<br>
+$&nbsp;../gcc-<number>6.3</number><number>.0</number>/configure&nbsp;--target=$MINGW_TARGET&nbsp;--prefix=$PREFIX&nbsp;--enable-languages=c,c++&nbsp;--enable-threads=win32&nbsp;--disable-multilib&nbsp;--disable-nls&nbsp;--disable-win32-registry&nbsp;--without-isl&nbsp;--with-headers=$PREFIX/$MINGW_TARGET/include&nbsp;MAKEINFO=true<br>
+$&nbsp;make&nbsp;-<func>j$</func>(nproc)&nbsp;all-gcc&nbsp;&amp;&amp;&nbsp;make&nbsp;install-gcc<br>
+$&nbsp;make&nbsp;-<func>j$</func>(nproc)&nbsp;&amp;&amp;&nbsp;make&nbsp;install
+</code>
+</div>
+
+<h3>Testing</h3>
+<p>First, 4 small test programs testing the compiler and the standard C library:</p>
+<div class="code-block">
+<code>
+<comment>//&nbsp;test0.c</comment><br>
+<comment>//&nbsp;i686-pc-mingw32-gcc&nbsp;-o&nbsp;test0.exe&nbsp;test0.c</comment><br>
+<type>int</type>&nbsp;<func>main</func>(<keyword>void</keyword>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<keyword>return</keyword>&nbsp;<number>0</number>;<br>
+}
+</code>
+</div>
+
+<div class="code-block">
+<code>
+<comment>//&nbsp;test1.c</comment><br>
+<comment>//&nbsp;i686-pc-mingw32-gcc&nbsp;-o&nbsp;test1.exe&nbsp;test1.c</comment><br>
+#include&nbsp;&lt;stdio.h&gt;<br>
+<br>
+<type>int</type>&nbsp;<func>main</func>(<keyword>void</keyword>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<func>printf</func>(<string>&quot;Hello, World!<string-escape>\n</string-escape>&quot;</string>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<keyword>return</keyword>&nbsp;<number>0</number>;<br>
+}
+</code>
+</div>
+
+<div class="code-block">
+<code>
+<comment>//&nbsp;test2.c</comment><br>
+<comment>//&nbsp;i686-pc-mingw32-gcc&nbsp;-o&nbsp;test2.exe&nbsp;test2.c</comment><br>
+#include&nbsp;&lt;stdio.h&gt;<br>
+<br>
+<type>int</type>&nbsp;<func>main</func>(<keyword>void</keyword>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<type>int</type>&nbsp;a&nbsp;=&nbsp;<number>69</number>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<func>printf</func>(<string>&quot;a = %d<string-escape>\n</string-escape>&quot;</string>,&nbsp;a);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<keyword>return</keyword>&nbsp;<number>0</number>;<br>
+}
+</code>
+</div>
+
+<div class="code-block">
+<code>
+<comment>//&nbsp;test3.c</comment><br>
+<comment>//&nbsp;i686-pc-mingw32-gcc&nbsp;-o&nbsp;test3.exe&nbsp;test3.c</comment><br>
+#include&nbsp;&lt;stdio.h&gt;<br>
+<br>
+<type>int</type>&nbsp;<func>main</func>(<keyword>void</keyword>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<type>int</type>&nbsp;a&nbsp;=&nbsp;<number>69</number>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<func>printf</func>(<string>&quot;a = %d<string-escape>\n</string-escape>&quot;</string>,&nbsp;a);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<type>int</type>&nbsp;b&nbsp;=&nbsp;<number>420</number>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<type>int</type>&nbsp;c&nbsp;=&nbsp;<number>80085</number>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<func>printf</func>(<string>&quot;b = %d<string-escape>\n</string-escape>&quot;</string>,&nbsp;b);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<func>printf</func>(<string>&quot;c = %d<string-escape>\n</string-escape>&quot;</string>,&nbsp;c);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<keyword>return</keyword>&nbsp;<number>0</number>;<br>
+}
+</code>
+</div>
+
+<p>After that, a program testing the Win32 API:</p>
+<div class="code-block">
+<code>
+<comment>//&nbsp;test4.c</comment><br>
+<comment>//&nbsp;i686-pc-mingw32-gcc&nbsp;-o&nbsp;test4.exe&nbsp;test4.c</comment><br>
+#include&nbsp;&lt;windows.h&gt;<br>
+<br>
+<type>int</type>&nbsp;<func>main</func>(<keyword>void</keyword>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<func>MessageBoxA</func>(NULL,&nbsp;<string>&quot;test&quot;</string>,&nbsp;<string>&quot;Test&quot;</string>,&nbsp;MB_OK);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<keyword>return</keyword>&nbsp;<number>0</number>;<br>
+}
+</code>
+</div>
+
+<p>Finally, testing the C++ compiler:</p>
+<div class="code-block">
+<code>
+<comment>//&nbsp;test5.cpp</comment><br>
+<comment>//&nbsp;i686-pc-mingw32-g++&nbsp;-o&nbsp;test5.exe&nbsp;test5.cpp</comment><br>
+#include&nbsp;&lt;iostream&gt;<br>
+<br>
+<type>int</type>&nbsp;<func>main</func>(<keyword>void</keyword>)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;std::cout&nbsp;&lt;&lt;&nbsp;<string>&quot;Hello, World!&quot;</string>&nbsp;&lt;&lt;&nbsp;std::endl;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<keyword>return</keyword>&nbsp;<number>0</number>;<br>
+}
+</code>
+</div>
+
+<h2>Other compilers</h2>
+<p>When I:</p>
+<ul>
+<li>need a cross-compiler,</li>
+<li>and can figure out how to build it,</li>
+</ul>
+
+<p>I will write them down here.</p>
+<p><small>Written on <time datetime="2026-11-07T00:00:00.000Z">2026-11-07</time></small><br></p>
+</html>

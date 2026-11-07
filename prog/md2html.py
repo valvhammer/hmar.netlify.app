@@ -85,8 +85,9 @@ def emit_code_block(data: str, lang: str):
     if lang == "c" or lang == "b" or lang == "glsl":
         actual_lang = "c"
     else:
-        print(f"currently unsupported language {lang}");
-        exit(69)
+        pass
+        #print(f"currently unsupported language {lang}");
+        #exit(69)
         
     with open("md2html.temp", "w") as f:
         f.write(data)

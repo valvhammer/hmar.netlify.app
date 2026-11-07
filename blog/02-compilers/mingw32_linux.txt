@@ -1,0 +1,20 @@
+tar xpf binutils-2.27.tar.bz2
+mkdir build-binutils && cd build-binutils
+../binutils-2.27/configure --target=$MINGW_TARGET --prefix=$MINGW_PREFIX --disable-nls --disable-multilib MAKEINFO=true
+make -j$(nproc) && sudo make install
+
+mkdir $MINGW_PREFIX/$MINGW_TARGET
+tar -C $PREFIX/$MINGW_TARGET -xpf mingwrt-3.22.4-mingw32-dev.tar.xz
+tar -C $PREFIX/$MINGW_TARGET -xpf w32api-3.18.2-mingw32-dev.tar.xz
+find $MINGW_PREFIX/$MINGW_TARGET/include $MINGW_PREFIX/$MINGW_TARGET/lib -name "crt2.o" -or -name "libmingw32.a" -or -name "libmingwex.a" # check that these exist
+
+tar xpf gcc-6.3.0.tar.bz2 &&
+tar xpf gmp-6.1.2.tar.bz2 && mv gmp-6.1.2 gcc-6.3.0/gmp
+tar xpf mpfr-3.1.5.tar.xz && mv mpfr-3.1.5 gcc-6.3.0/mpfr
+tar xpf mpc-1.0.3.tar.gz && mv mpc-1.0.3 gcc-6.3.0/mpc
+sed -i "s/xloc.file == '\\\\0'/xloc.file == NULL/" gcc-6.3.0/gcc/ubsan.c
+sed -n '1474p' gcc-6.3.0/gcc/ubsan.c # check
+../gcc-6.3.0/configure --target=$MINGW_TARGET --prefix=$PREFIX --enable-languages=c,c++ --enable-threads=win32 --disable-multilib --disable-nls --disable-win32-registry --without-isl --with-headers=$PREFIX/$MINGW_TARGET/include MAKEINFO=true
+make -j$(nproc) all-gcc && make install-gcc
+make -j$(nproc) && make install
+
